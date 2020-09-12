@@ -1,0 +1,49 @@
+﻿<Window x:Class="WPF_Test.Views.PersonCardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Test.Views"
+        mc:Ignorable="d"
+        Title="{Binding Title}" SizeToContent="Height" Width="500">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="MinWidth" Value="100"/>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Фамилия"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Имя"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Отчество"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Email"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Surname}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Patronymic}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Email}"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="{Binding OkButtonText}" Style="{StaticResource ButtonStyle}"
+                    Command="{Binding OkCommand}"/>
+            <Button Content="Отмена" Style="{StaticResource ButtonStyle}"
+                    Command="{Binding CloseCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,41 @@
+﻿<Window x:Class="WPF_Test.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Test.Views"
+        mc:Ignorable="d"
+        Title="Test" Height="450" Width="800">
+    
+    <Window.Resources>
+        <DataTemplate x:Key="PersonsTemplate">
+            <TextBlock Text="{Binding FullName}"/>
+        </DataTemplate>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="MinWidth" Value="100"/>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button Style="{StaticResource ButtonStyle}" Content="Добавить" Command="{Binding CreateCommand}"/>
+            <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" Command="{Binding EditCommand}"/>
+            <Button Style="{StaticResource ButtonStyle}" Content="Удалить" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"            
+                  ItemsSource="{Binding Persons}" SelectedItem="{Binding SelectedPerson}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FullName}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
