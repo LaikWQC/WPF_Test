@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Windows;
-using WPF_Test.Models;
+using WPF_Test.Data.Models;
 
 namespace WPF_Test.ViewModels
 {

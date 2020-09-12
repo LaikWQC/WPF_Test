@@ -1,28 +1,32 @@
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using WPF_Test.Models;
-using WPF_Test.Services;
+using WPF_Test.Data.Models;
+using WPF_Test.Data.Services;
 using WPF_Test.Views;
 using System;
+using Microsoft.Win32;
+using System.Collections.Generic;
 
 namespace WPF_Test.ViewModels
 {
     public class MainViewModel : MyViewModel
     {
+        private readonly PersonService _service;
+
         public MainViewModel(Window view) : base(view)
         {
-            var service = new PersonService();
-            _persons = new ObservableCollection<Person>(service.GetPersons());
+            _service = new PersonService();
+            _persons = new ObservableCollection<Person>();
 
             CreateCommand = new RelayCommand(CreateAction);
             EditCommand = new RelayCommand(EditAction, CanEdit);
             DeleteCommand = new RelayCommand(DeleteAction, CanEdit);
+            SaveCommand = new RelayCommand(SaveAction);
+            LoadCommand = new RelayCommand(LoadAction);
         }
 
+        #region Properties
         public const string PersonsPropertyName = nameof(Persons);
         private ObservableCollection<Person> _persons;
         public ObservableCollection<Person> Persons
@@ -49,11 +53,17 @@ namespace WPF_Test.ViewModels
                 EditCommand.RaiseCanExecuteChanged();
             }
         }
+        #endregion
 
+        #region Commands
         public RelayCommand CreateCommand { get; private set; }
         public RelayCommand EditCommand { get; private set; }
         public RelayCommand DeleteCommand { get; private set; }
+        public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand LoadCommand { get; private set; }
+        #endregion
 
+        #region Crud Actions
         private void CreateAction()
         {
             var viewModel = new CreateViewModel(new PersonCardView(), (p)=> Persons.Add(p));
@@ -89,5 +99,47 @@ namespace WPF_Test.ViewModels
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
         }
+        #endregion
+
+        #region Save&Load
+        private void SaveAction()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "XML-File | *.xml";
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                _service.SavePersons(saveFileDialog1.FileName, _persons, ShowSaveFileMessage);
+            }
+        }
+
+        private void ShowSaveFileMessage(Exception ex)
+        {
+            string text = ex == null ? "Данные успешно сохранены" : $"Произошла ошибка:\n {ex.Message}";
+            MessageBox.Show(text);
+        }
+
+        private void LoadAction()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "XML-File | *.xml";
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _service.LoadPersons(openFileDialog.FileName, LoadPersonsCollection);
+            }
+        }
+
+        private void LoadPersonsCollection(IEnumerable<Person> persons, Exception ex)
+        {
+            if(ex!=null) MessageBox.Show($"Произошла ошибка:\n {ex.Message}");
+            if (persons == null) return;
+            Persons = new ObservableCollection<Person>(persons);
+        }
+        #endregion
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF_Test.Models
+namespace WPF_Test.Data.Models
 {
     public class Person
     {

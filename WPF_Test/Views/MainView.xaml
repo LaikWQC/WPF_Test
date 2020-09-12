@@ -19,23 +19,32 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Button Style="{StaticResource ButtonStyle}" Content="Добавить" Command="{Binding CreateCommand}"/>
-            <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" Command="{Binding EditCommand}"/>
-            <Button Style="{StaticResource ButtonStyle}" Content="Удалить" Command="{Binding DeleteCommand}"/>
-        </StackPanel>
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить" Command="{Binding SaveCommand}"/>
+                <MenuItem Header="Загрузить" Command="{Binding LoadCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Style="{StaticResource ButtonStyle}" Content="Добавить" Command="{Binding CreateCommand}"/>
+                <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" Command="{Binding EditCommand}"/>
+                <Button Style="{StaticResource ButtonStyle}" Content="Удалить" Command="{Binding DeleteCommand}"/>
+            </StackPanel>
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
                   CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"            
                   ItemsSource="{Binding Persons}" SelectedItem="{Binding SelectedPerson}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Binding="{Binding FullName}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </StackPanel>
 </Window>
