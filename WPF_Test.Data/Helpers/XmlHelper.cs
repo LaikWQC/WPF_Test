@@ -5,7 +5,7 @@ using WPF_Test.Data.Models;
 
 namespace WPF_Test.Data.Helpers
 {
-    public static class XlmHelper
+    public static class XmlHelper
     {
         public static void Save(string fileName, IEnumerable<Person> persons)
         {
@@ -41,6 +41,7 @@ namespace WPF_Test.Data.Helpers
 
         public static IEnumerable<Person> Load(string fileName)
         {
+            var persons = new List<Person>();
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(fileName);
             XmlElement xRoot = xDoc.DocumentElement;
@@ -66,8 +67,9 @@ namespace WPF_Test.Data.Helpers
                             break;
                     }
                 }
-                yield return person;
+                persons.Add(person);
             }
+            return persons;
         }
     }
 }

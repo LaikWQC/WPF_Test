@@ -106,7 +106,7 @@ namespace WPF_Test.ViewModels
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            saveFileDialog1.Filter = "XML-File | *.xml";
+            saveFileDialog1.Filter = "XML-File | *.xml|Binary File (*.bin)|*.bin";
             saveFileDialog1.RestoreDirectory = true;
 
             if (saveFileDialog1.ShowDialog() == true)
@@ -125,7 +125,7 @@ namespace WPF_Test.ViewModels
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.Filter = "XML-File | *.xml";
+            openFileDialog.Filter = "XML-File | *.xml|Binary File (*.bin)|*.bin";
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == true)
