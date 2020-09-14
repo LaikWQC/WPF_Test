@@ -15,7 +15,7 @@ namespace WPF_Test.ViewModels
 
             Setup(person);
 
-            OkCommand = new RelayCommand(Edit);
+            OkCommand = new RelayCommand(Edit, IsLegit);
 
             Title = "Редактирование";
             OkButtonText = "Применить";
@@ -40,7 +40,7 @@ namespace WPF_Test.ViewModels
             };
 
             Close();
-            _afterEdition(person);
+            _afterEdition?.Invoke(person);
         }
     }
 }

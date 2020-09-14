@@ -34,10 +34,10 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Имя"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Отчество"/>
             <Label Grid.Row="3" Grid.Column="0" Content="Email"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Surname}"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Patronymic}"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Email}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="{Binding OkButtonText}" Style="{StaticResource ButtonStyle}"

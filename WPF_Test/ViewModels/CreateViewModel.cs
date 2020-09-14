@@ -13,7 +13,7 @@ namespace WPF_Test.ViewModels
         {
             _afterCreation = afterCreation;
 
-            OkCommand = new RelayCommand(Create);
+            OkCommand = new RelayCommand(Create, IsLegit);
 
             Title = "Добавление";
             OkButtonText = "Добавить";
@@ -28,7 +28,7 @@ namespace WPF_Test.ViewModels
                 Email = Email };
 
             Close();
-            _afterCreation(person);
+            _afterCreation?.Invoke(person);
         }
     }
 }
