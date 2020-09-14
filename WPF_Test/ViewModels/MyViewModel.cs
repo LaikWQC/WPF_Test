@@ -21,5 +21,18 @@ namespace WPF_Test.ViewModels
         {
             View.Close();
         }
+
+        public const string IsEnablePropertyName = nameof(IsEnable);
+        private bool _isEnable = true;
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set
+            {
+                if (_isEnable == value) return;
+                _isEnable = value;
+                RaisePropertyChanged(IsEnablePropertyName);
+            }
+        }
     }
 }

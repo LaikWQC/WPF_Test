@@ -111,7 +111,7 @@ namespace WPF_Test.ViewModels
 
             if (saveFileDialog1.ShowDialog() == true)
             {
-                _service.SavePersons(saveFileDialog1.FileName, _persons, ShowSaveFileMessage);
+                _service.SavePersonsAsync(saveFileDialog1.FileName, _persons, ShowSaveFileMessage);
             }
         }
 
@@ -130,7 +130,8 @@ namespace WPF_Test.ViewModels
 
             if (openFileDialog.ShowDialog() == true)
             {
-                _service.LoadPersons(openFileDialog.FileName, LoadPersonsCollection);
+                IsEnable = false;
+                _service.LoadPersonsAsync(openFileDialog.FileName, LoadPersonsCollection);
             }
         }
 
@@ -139,6 +140,7 @@ namespace WPF_Test.ViewModels
             if(ex!=null) MessageBox.Show($"Произошла ошибка:\n {ex.Message}");
             if (persons == null) return;
             Persons = new ObservableCollection<Person>(persons);
+            IsEnable = true;
         }
         #endregion
     }
